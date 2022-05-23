@@ -4,6 +4,7 @@ import RadioButtonsPage from "../../pageObjects/RadioButtonsPage";
 import WebTablesPage from "../../pageObjects/WebTablesPage";
 import ButtonsPage from "../../pageObjects/ButtonsPage";
 import LinksPage from "../../pageObjects/LinksPage";
+import selectablePage from "../../pageObjects/selectablePage";
 
 context("Elements Page", () => {
   context("Text box scenarios", () => {
@@ -188,6 +189,34 @@ context("Elements Page", () => {
       // cy.intercept("GET", "created", { statusCode: 400 });
       LinksPage.createdLink.click();
       LinksPage.linkResponse.should("contain", "201");
+    });
+  });
+  context("Buttons scenarios", () => {
+    beforeEach(() => {
+      selectablePage.visit();
+    });
+
+    it.only("API intercepting", () => {
+      selectablePage.textButton.contains("Cras justo odio").click();
+      selectablePage.textButton.contains("Morbi leo risus").click();
+      selectablePage.textButton.contains("Cras justo odio").invoke('attr', 'class').should('equal', 'mt-2 list-group-item active list-group-item-action');
+      selectablePage.textButton.contains("Morbi leo risus").invoke('attr', 'class').should('equal', 'mt-2 list-group-item active list-group-item-action');
+      selectablePage.textButton.contains("Dapibus ac facilisis in").invoke('attr', 'class').should('equal', 'mt-2 list-group-item list-group-item-action');
+      selectablePage.textButton.contains("Porta ac consectetur ac").invoke('attr', 'class').should('equal', 'mt-2 list-group-item list-group-item-action');
+      selectablePage.gridButton.click();
+      selectablePage.textButton.contains("Two").click();
+      selectablePage.textButton.contains("Four").click();
+      selectablePage.textButton.contains("Six").click();
+      selectablePage.textButton.contains("Eight").click();
+      selectablePage.textButton.contains("Two").invoke('attr', 'class').should('equal', 'list-group-item active list-group-item-action');
+      selectablePage.textButton.contains("Four").invoke('attr', 'class').should('equal', 'list-group-item active list-group-item-action');
+      selectablePage.textButton.contains("Six").invoke('attr', 'class').should('equal', 'list-group-item active list-group-item-action');
+      selectablePage.textButton.contains("Eight").invoke('attr', 'class').should('equal', 'list-group-item active list-group-item-action');
+      selectablePage.textButton.contains("One").invoke('attr', 'class').should('equal', 'list-group-item list-group-item-action');
+      selectablePage.textButton.contains("Three").invoke('attr', 'class').should('equal', 'list-group-item list-group-item-action');
+      selectablePage.textButton.contains("Five").invoke('attr', 'class').should('equal', 'list-group-item list-group-item-action');
+      selectablePage.textButton.contains("Seven").invoke('attr', 'class').should('equal', 'list-group-item list-group-item-action');
+      selectablePage.textButton.contains("Nine").invoke('attr', 'class').should('equal', 'list-group-item list-group-item-action');
     });
   });
 });
